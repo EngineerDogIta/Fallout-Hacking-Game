@@ -119,4 +119,4 @@ def main():
 if __name__ == '__main__':
     main()
     print('')
-    input("Premi invio per chiudere ...")
+    input("Press return to continue ...")
