@@ -78,7 +78,10 @@ def main():
     time.sleep(EFFECT_WAIT_SEC)
     print("debug process phase 1/2 -> 'OK' ")
 
-    attempt = int(len(debuglist[0]) / DIFFICULTY)
+    try:
+        attempt = int(len(debuglist[0]) / DIFFICULTY)
+    except Exception:
+        attempt = int(len(debuglist[0]))
     time.sleep(EFFECT_WAIT_SEC)
     print("debug process phase 2/2 -> taking just from 0,122 line ")
 
