@@ -1,5 +1,8 @@
 # Fallout-Hacking-Game
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+
 This is a game made with python that ports the hacking process of the game franchise Fallout
 
 to play the game run the main.py script into the console, the game is currently in italian but to change the language,
