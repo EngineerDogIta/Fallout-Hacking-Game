@@ -52,8 +52,6 @@ python main.py
 
 To change the language of the game, replace the word list file with another one in the `wordList` directory. The file must contain one word per line.
 
-## Note Legali
-
 ## Legal Notes
 
 I do not own the trademark of the Fallout series, this is just a fan-game that reproduces that part of the game. All the code inside was written by hand.
