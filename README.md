@@ -9,7 +9,7 @@ Make sure you have Python 3.x installed on your system. You can download and ins
 1. Clone this repository to your computer:
 
     ```sh
-    git clone https://github.com/EngineerDogIta/Fallout-Hacking-Game.git
+    git clone https://github.com/EngineerDogIta/Fallout-Hacking-Game.git\
     ```
 
 2. Navigate to the project directory:
