@@ -5,10 +5,20 @@ import random
 import time
 import json
 
-# Carica la configurazione dal file JSON
+
 def load_config(config_file):
+    """
+    Load configuration from a JSON file.
+
+    Args:
+        config_file (str): The path to the JSON configuration file.
+
+    Returns:
+        dict: The configuration data loaded from the file.
+    """
     with open(config_file, 'r', encoding='utf-8') as file:
         return json.load(file)
+
 
 config = load_config('config.json')
 
@@ -19,48 +29,52 @@ MIN_NUM_WORD = config['MIN_NUM_WORD']
 LENGHT_PER_WORD = config['LENGHT_PER_WORD']
 DIFFICULTY = config['DIFFICULTY']
 
+
 def load_file_word_list(dirfile):
     """
-    Carica la lista di parole da un file.
+    Load the word list from a file.
 
     Args:
-        dirfile (str): Il percorso del file da cui caricare le parole.
+        dirfile (str): The path to the file from which to load the words.
 
     Returns:
-        list: Una lista di parole caricate dal file.
+        list: A list of words loaded from the file.
     """
     words = []
     try:
         with open(dirfile, 'r', encoding='utf-8') as fil:
             words = fil.read().splitlines()
     except FileNotFoundError:
-        print(f"Errore: Il file {dirfile} non è stato trovato.")
+        print(f"Error: The file {dirfile} was not found.")
     except IOError:
-        print(f"Errore: Impossibile leggere il file {dirfile}.")
+        print(f"Error: Unable to read the file {dirfile}.")
     return words
+
 
 def randomword(wordlist):
     """
-    Seleziona una parola casuale dalla lista di parole.
+    Select a random word from the word list.
 
     Args:
-        wordlist (list): La lista di parole da cui selezionare.
+        wordlist (list): The list of words to select from.
 
     Returns:
-        str: Una parola casuale dalla lista.
+        str: A random word from the list.
     """
     ind = random.randint(0, len(wordlist)-1)
     return wordlist[ind]
 
+
 def generate(wordlist):
     """
-    Genera una lista di parole dove il giocatore deve indovinare quella corretta.
+    Generates a list of words where the player
+    has to guess the correct one.
 
     Args:
-        wordlist (list): La lista di parole da cui generare.
+        wordlist (list): The list of words to generate from.
 
     Returns:
-        tuple: Una lista di parole generate casualmente e la parola corretta.
+        tuple: A list of randomly generated words and the correct word
     """
     debuglist = set()
     max_words = random.randint(MIN_NUM_WORD, MAX_NUM_WORD)
@@ -74,29 +88,33 @@ def generate(wordlist):
     newlistwords = list(debuglist)
     return (newlistwords, newlistwords[random.randint(0, len(newlistwords))])
 
+
 def verifyword(word, masterpassword):
     """
-    Verifica se la parola inserita è corretta.
+    Verifies if the entered word is correct.
 
     Args:
-        word (str): La parola inserita dall'utente.
-        masterpassword (str): La parola corretta.
+        word (str): The word entered by the user.
+        masterpassword (str): The correct word.
 
     Returns:
-        bool: True se la parola è corretta, False altrimenti.
+        bool: True if the word is correct, False otherwise.
     """
     return word == masterpassword
 
+
 def letinword(word, masterpassword):
     """
-    Conta il numero di lettere corrette nella parola masterpassword dalla parola inserita.
+    Counts the number of correct letters in the masterpassword from the
+    entered word.
 
     Args:
-        word (str): La parola inserita dall'utente.
-        masterpassword (str): La parola corretta.
+        word (str): The word entered by the user.
+        masterpassword (str): The correct word.
 
     Returns:
-        str: Il numero di lettere corrette rispetto alla lunghezza della parola corretta.
+        str: The number of correct letters relative to the length of the
+        correct word.
     """
     nletter = 0
     for letter in word:
@@ -104,9 +122,10 @@ def letinword(word, masterpassword):
             nletter += 1
     return str(nletter) + "/" + str(len(masterpassword))
 
+
 def main():
     """
-    Funzione principale del gioco.
+    Main function of the program.
     """
     print("Excecuting Debug of the secretCodes.db", "")
     print("")
@@ -160,6 +179,7 @@ def main():
         print("COMPUTER LOCKED")
         print("")
         print("NO MORE ATTEMPTS AVAILABLE")
+
 
 if __name__ == '__main__':
     main()
