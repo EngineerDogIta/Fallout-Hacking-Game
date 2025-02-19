@@ -122,7 +122,7 @@ def main():
 
     try:
         attempt = int(len(debuglist[0]) / DIFFICULTY)
-    except Exception:
+    except ZeroDivisionError:
         attempt = int(len(debuglist[0]))
     time.sleep(EFFECT_WAIT_SEC)
     print("debug process phase 2/2 -> taking just from 0,122 line ")
