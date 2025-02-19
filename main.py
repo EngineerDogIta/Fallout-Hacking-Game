@@ -3,34 +3,64 @@ importing the random library and time just for some things
 """
 import random
 import time
+import json
 
-NAME_FILE = 'wordListItaliano.txt'
-EFFECT_WAIT_SEC = 0.1
-MAX_NUM_WORD = 10
-MIN_NUM_WORD = 4
-LENGHT_PER_WORD = 5
-DIFFICULTY = 2 # NEVER MAKE THIS VALUE 0 I REPEAT NEVER!!!
+# Carica la configurazione dal file JSON
+def load_config(config_file):
+    with open(config_file, 'r', encoding='utf-8') as file:
+        return json.load(file)
+
+config = load_config('config.json')
+
+NAME_FILE = config['NAME_FILE']
+EFFECT_WAIT_SEC = config['EFFECT_WAIT_SEC']
+MAX_NUM_WORD = config['MAX_NUM_WORD']
+MIN_NUM_WORD = config['MIN_NUM_WORD']
+LENGHT_PER_WORD = config['LENGHT_PER_WORD']
+DIFFICULTY = config['DIFFICULTY']
 
 def load_file_word_list(dirfile):
     """
-    loads from the dirfile file the words
-    stores the words in a list and returns it
+    Carica la lista di parole da un file.
+
+    Args:
+        dirfile (str): Il percorso del file da cui caricare le parole.
+
+    Returns:
+        list: Una lista di parole caricate dal file.
     """
     words = []
-    with open(dirfile, 'r') as fil:
-        words = fil.read().splitlines()
+    try:
+        with open(dirfile, 'r', encoding='utf-8') as fil:
+            words = fil.read().splitlines()
+    except FileNotFoundError:
+        print(f"Errore: Il file {dirfile} non è stato trovato.")
+    except IOError:
+        print(f"Errore: Impossibile leggere il file {dirfile}.")
     return words
 
 def randomword(wordlist):
     """
-    takes a random word from the wordlist
+    Seleziona una parola casuale dalla lista di parole.
+
+    Args:
+        wordlist (list): La lista di parole da cui selezionare.
+
+    Returns:
+        str: Una parola casuale dalla lista.
     """
     ind = random.randint(0, len(wordlist)-1)
     return wordlist[ind]
 
 def generate(wordlist):
     """
-    generates a list of words where the players has to guess the right one
+    Genera una lista di parole dove il giocatore deve indovinare quella corretta.
+
+    Args:
+        wordlist (list): La lista di parole da cui generare.
+
+    Returns:
+        tuple: Una lista di parole generate casualmente e la parola corretta.
     """
     debuglist = set()
     max_words = random.randint(MIN_NUM_WORD, MAX_NUM_WORD)
@@ -46,13 +76,27 @@ def generate(wordlist):
 
 def verifyword(word, masterpassword):
     """
-    it checks if it is the right word
+    Verifica se la parola inserita è corretta.
+
+    Args:
+        word (str): La parola inserita dall'utente.
+        masterpassword (str): La parola corretta.
+
+    Returns:
+        bool: True se la parola è corretta, False altrimenti.
     """
     return word == masterpassword
 
 def letinword(word, masterpassword):
     """
-    number of correct letters in masterpassword from the word
+    Conta il numero di lettere corrette nella parola masterpassword dalla parola inserita.
+
+    Args:
+        word (str): La parola inserita dall'utente.
+        masterpassword (str): La parola corretta.
+
+    Returns:
+        str: Il numero di lettere corrette rispetto alla lunghezza della parola corretta.
     """
     nletter = 0
     for letter in word:
@@ -62,10 +106,8 @@ def letinword(word, masterpassword):
 
 def main():
     """
-    welcome to the easiest hacking tool of the whole time!
+    Funzione principale del gioco.
     """
-
-
     print("Excecuting Debug of the secretCodes.db", "")
     print("")
     print("initiating preliminary processes")
@@ -102,7 +144,7 @@ def main():
         inser = str(input("verifyFun() insert string -> "))
         if inser in listwords:
             if verifyword(inser, masterpass):
-                # you faound the right words
+                # you found the right word
                 print("ACCESS GRANTED")
                 break
             else:

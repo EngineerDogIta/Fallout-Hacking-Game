@@ -1,0 +1,8 @@
+{
+    "NAME_FILE": "wordListItaliano.txt",
+    "EFFECT_WAIT_SEC": 0.1,
+    "MAX_NUM_WORD": 10,
+    "MIN_NUM_WORD": 4,
+    "LENGHT_PER_WORD": 5,
+    "DIFFICULTY": 2
+}
