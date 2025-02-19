@@ -1,5 +1,12 @@
 # Installation and Running Instructions for the Game
 
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![GitHub issues](https://img.shields.io/github/issues/EngineerDogIta/Fallout-Hacking-Game)
+![GitHub forks](https://img.shields.io/github/forks/EngineerDogIta/Fallout-Hacking-Game)
+![GitHub stars](https://img.shields.io/github/stars/EngineerDogIta/Fallout-Hacking-Game)
+![GitHub license](https://img.shields.io/github/license/EngineerDogIta/Fallout-Hacking-Game)
+
 ## Prerequisites
 
 Make sure you have Python 3.x installed on your system. You can download and install it from the official [Python](https://www.python.org/) website.
