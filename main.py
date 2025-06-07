@@ -78,15 +78,23 @@ def generate(wordlist):
     """
     debuglist = set()
     max_words = random.randint(MIN_NUM_WORD, MAX_NUM_WORD)
-    finito = False
-    while not finito:
-        word = randomword(wordlist)
-        if len(word) == LENGHT_PER_WORD:
-            debuglist.add(word)
-        if len(debuglist) == max_words:
-            finito = True
+    
+    # First, filter words of correct length
+    valid_words = [word for word in wordlist if len(word) == LENGHT_PER_WORD]
+    
+    if not valid_words:
+        raise ValueError(f"No words found with length {LENGHT_PER_WORD}. Please check your word list.")
+    
+    # Randomly select words from valid words
+    while len(debuglist) < max_words and len(debuglist) < len(valid_words):
+        word = random.choice(valid_words)
+        debuglist.add(word)
+    
     newlistwords = list(debuglist)
-    return (newlistwords, newlistwords[random.randint(0, len(newlistwords))])
+    if not newlistwords:
+        raise ValueError("Could not generate enough words. Please check your word list and configuration.")
+        
+    return (newlistwords, random.choice(newlistwords))
 
 
 def verifyword(word, masterpassword):
