@@ -14,9 +14,9 @@ RESET = "\033[0m"
 
 
 def green(s): return f"{GREEN}{s}{RESET}"
-def red(s):   return f"{RED}{s}{RESET}"
+def red(s): return f"{RED}{s}{RESET}"
 def yellow(s): return f"{YELLOW}{s}{RESET}"
-def cyan(s):  return f"{CYAN}{s}{RESET}"
+def cyan(s): return f"{CYAN}{s}{RESET}"
 
 
 # ---------------------------------------------------------------------------
@@ -102,7 +102,9 @@ def display_words(words, removed):
             right_word = right_col[i]
             right_addr = cyan(f"0x{HEX_BASE + (half + i) * HEX_STRIDE:04X}")
             right_display = FILLER if right_word in removed else right_word
-            print(f"  {left_addr}  {left_display:<12}  {right_addr}  {right_display}")
+            left_part = f"  {left_addr}  {left_display:<12}"
+            right_part = f"  {right_addr}  {right_display}"
+            print(left_part + right_part)
         else:
             print(f"  {left_addr}  {left_display}")
     print()
@@ -160,7 +162,11 @@ def main():
     while attempt > 0:
         attempt_color = red(str(attempt)) if attempt <= 2 else str(attempt)
         print(f"\n attempt num > {attempt_color}")
-        print(yellow("  Commands: REMOVE (remove a dud)  |  REPLENISH (restore attempts, once)"))
+        cmd_hint = (
+            "  Commands: REMOVE (remove a dud)"
+            "  |  REPLENISH (restore attempts, once)"
+        )
+        print(yellow(cmd_hint))
 
         try:
             inser = input("  > ").strip().upper()
@@ -170,7 +176,9 @@ def main():
 
         # --- Special commands ---
         if inser == "REMOVE":
-            candidates = [w for w in listwords if w != masterpass and w not in removed]
+            candidates = [
+                w for w in listwords if w != masterpass and w not in removed
+            ]
             if candidates:
                 dud = random.choice(candidates)
                 removed.add(dud)
@@ -198,7 +206,8 @@ def main():
                 break
             else:
                 hint = letinword(inser, masterpass)
-                print(red(f"  ERROR {inser}") + " -> " + yellow(f"Likeness: {hint}"))
+                err = red(f"  ERROR {inser}")
+                print(err + " -> " + yellow(f"Likeness: {hint}"))
                 print(f"  WRONG WORD  attempt num > {attempt - 1}")
                 attempt -= 1
         else:
